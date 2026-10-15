@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <style>
+        /* Base page styling */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+        }
+
+        /* Container card with entrance animation */
+        .calculator-card {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 24px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        /* Input fields styling and hover/focus animation */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e1e4e8;
+            border-radius: 8px;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.25);
+            transform: translateY(-1px);
+        }
+
+        /* Button styling and click animation */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.15s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            background-color: #357abd;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        /* Animated result box */
+        #result-box {
+            display: none;
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f0f7ff;
+            color: #2a5298;
+            font-size: 15px;
+            font-weight: 600;
+            animation: popIn 0.3s ease-out;
+        }
+
+        /* Keyframe animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator-card">
+        <h1>Grade Calculator</h1>
+        
+        <div class="input-group">
+            <input type="number" placeholder="Subject 1 Mark" id="mark1" min="0" max="100" required>
+            <input type="number" placeholder="Subject 2 Mark" id="mark2" min="0" max="100" required>
+            <input type="number" placeholder="Subject 3 Mark" id="mark3" min="0" max="100" required>
+            <input type="number" placeholder="Subject 4 Mark" id="mark4" min="0" max="100" required>
+            <input type="number" placeholder="Subject 5 Mark" id="mark5" min="0" max="100" required>
+        </div>
+
+        <button onclick="grade()">Calculate Result</button>
+        
+        <div id="result-box"></div>
+    </div>
+
+    <script>
+        function grade(){
+            var mark1 = Number(document.getElementById("mark1").value);
+            var mark2 = Number(document.getElementById("mark2").value);
+            var mark3 = Number(document.getElementById("mark3").value);
+            var mark4 = Number(document.getElementById("mark4").value);
+            var mark5 = Number(document.getElementById("mark5").value);
+
+            var total = mark1 + mark2 + mark3 + mark4 + mark5;
+            var average = total / 5;
+            var gradeLetter = "";
+
+            if (average >= 90) {
+                gradeLetter = "A";
+            } else if (average >= 80) {
+                gradeLetter = "B";
+            } else if (average >= 70) {
+                gradeLetter = "C";
+            } else if (average >= 60) {
+                gradeLetter = "D";
+            } else {
+                gradeLetter = "F";
+            }
+
+            // Display on screen with animation
+            var resultBox = document.getElementById("result-box");
+            resultBox.style.display = "block";
+            resultBox.innerHTML = `Grade: ${gradeLetter} <br> Total: ${total} | Average: ${average.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
